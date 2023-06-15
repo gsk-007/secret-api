@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Image, Spacer, Text, Center } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import img from "../assets/home.jpg";
 
 const HomePage = () => {
