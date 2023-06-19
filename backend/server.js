@@ -7,6 +7,9 @@ import cors from "cors";
 
 import ConnectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
+// import User from "./models/User.js";
+// import Secret from "./models/Secret.js";
+// import { users, secrets } from "./seeder.js";
 
 const app = express();
 
@@ -42,3 +45,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
+
+// add data only once
+// User.insertMany(users);
+// Secret.insertMany(secrets);
