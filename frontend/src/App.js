@@ -1,11 +1,12 @@
-import React from "react";
-// import jwt_decode from "jwt-decode";
-import "./App.css";
-import Login from "./components/auth/login";
-// import Register from "./components/auth/register";
+import HomeScreen from "./screens/HomeScreen";
 
-function App() {
-  return <Login />;
-}
+const App = () => {
+  return (
+    <>
+      <HomeScreen />
+    </>
+  );
+};
+
 
 export default App;
