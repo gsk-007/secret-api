@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 import config from "config";
 
 const db = config.get("mongoURI");
-
+console.log(db);
 const connectDB = async () => {
   try {
-    await mongoose.connect(db);
+    // await mongoose.connect(db);
     console.log("MongoDB Connected.");
   } catch (error) {
-    console.error(error.message);
-    process.exit(1);
+    // console.error(error.message);
+    // process.exit(1);
   }
 };
 
