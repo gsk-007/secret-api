@@ -23,23 +23,22 @@ const userSchema = new mongoose.Schema(
       required: true,
       min: 6,
     },
-    token: {
+    apiKey: {
       type: String,
-      //   required: true,
+      // required: true,
     },
-    apiKey: [
-      {
-        type: String,
-        // required: true,
-      },
-    ],
     plan: {
-      type: String,
+      type: Number,
       //   required: true,
+      default: 1,
     },
     remainingApiCalls: {
       type: Number,
       //   required: true,
+    },
+    remainingApiCallsToday: {
+      type: Number,
+      default: 25,
     },
   },
   {
