@@ -1,9 +1,9 @@
-import { users } from "./data/users";
-import { secrets } from "./data/secrets";
-import User from "./models/User";
-import Secret from "./models/Secret";
+import { users } from "./data/users.js";
+import { secrets } from "./data/secrets.js";
+import User from "./models/User.js";
+import Secret from "./models/Secret.js";
 
-import connectDB from "./config/db";
+import connectDB from "./config/db.js";
 
 connectDB();
 
@@ -13,10 +13,12 @@ const importData = async () => {
     await Secret.deleteMany();
 
     await User.insertMany(users);
-    await User.insertMany(secrets);
+    await Secret.insertMany(secrets);
     console.log("Data Imported");
+    process.exit();
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 };
 

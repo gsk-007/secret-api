@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      //   required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -27,12 +23,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       //   required: true,
     },
-    apiKey: [
-      {
-        type: String,
-        // required: true,
-      },
-    ],
+    apiKey: {
+      type: String,
+      // required: true,
+    },
+
     plan: {
       type: String,
       //   required: true,
