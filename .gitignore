@@ -11,6 +11,8 @@ node_modules
 # production
 /build
 
+/default.json
+
 # misc
 /*/.env
 .DS_Store

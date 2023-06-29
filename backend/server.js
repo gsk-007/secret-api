@@ -1,15 +1,8 @@
-// const express = require("express");
-// const connectDB = require("./config/db");
-// const cors = require("cors");
-
 import express from "express";
 import cors from "cors";
 
 import ConnectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
-// import User from "./models/User.js";
-// import Secret from "./models/Secret.js";
-// import { users, secrets } from "./seeder.js";
 
 const app = express();
 
