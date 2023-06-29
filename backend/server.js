@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.js";
 const app = express();
 
 // connect database
-// ConnectDB();
+ConnectDB();
 app.use(express.json());
 app.use(cors());
 
