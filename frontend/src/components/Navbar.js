@@ -30,7 +30,7 @@ const Navbar = () => {
           Login
         </Button>
         <Button marginX={3} size="sm" colorScheme="teal">
-          Sign Up
+          Register
         </Button>
       </Flex>
     </Box>
