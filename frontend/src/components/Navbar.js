@@ -32,12 +32,12 @@ const Navbar = () => {
         ))}
         <Spacer />
         <Link to="/login">
-          <Button marginX={3} size="sm" colorScheme="blue">
+          <Button marginX={3} size="sm" colorScheme="teal">
             Login
           </Button>
         </Link>
         <Link to="/register">
-          <Button marginX={3} size="sm" colorScheme="blue">
+          <Button marginX={3} size="sm" colorScheme="teal">
             Register
           </Button>
         </Link>
