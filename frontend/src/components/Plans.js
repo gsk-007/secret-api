@@ -64,11 +64,17 @@ const Plans = () => {
             width="360px"
             marginY={6}
             align="center"
+            color="brand.primaryOne"
+            bg="brand.backgroundTwo"
           >
             <CardHeader>
-              <Heading size="lg">{_.name}</Heading>
+              <Heading color="brand.primaryTwo" size="lg">
+                {_.name}
+              </Heading>
               <Center>
-                <Text fontWeight="bold">Type: {_.type}</Text>
+                <Text marginTop={2} fontWeight="bold">
+                  Type: {_.type}
+                </Text>
               </Center>
             </CardHeader>
             <CardBody>
@@ -84,7 +90,7 @@ const Plans = () => {
               </Center>
             </CardBody>
             <CardFooter>
-              <Button colorScheme="teal" variant="outline">
+              <Button colorScheme="teal" variant="ghost">
                 Buy
               </Button>
             </CardFooter>

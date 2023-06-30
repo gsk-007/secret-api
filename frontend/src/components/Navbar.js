@@ -26,10 +26,10 @@ const Navbar = () => {
           </Box>
         ))}
         <Spacer />
-        <Button marginX={3} size="sm" colorScheme="blue">
+        <Button marginX={3} size="sm" colorScheme="teal">
           Login
         </Button>
-        <Button marginX={3} size="sm" colorScheme="blue">
+        <Button marginX={3} size="sm" colorScheme="teal">
           Sign Up
         </Button>
       </Flex>
