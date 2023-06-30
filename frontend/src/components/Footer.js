@@ -3,7 +3,7 @@ import {
   Center,
   Container,
   Heading,
-  Stack,
+  Link,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -20,9 +20,15 @@ const Footer = () => {
         direction={{ base: "column", md: "row" }}
         justify="center"
         align="center"
+        color="brand.primaryTwo"
+        bg="black"
       >
         <Text>© 2023 BlahBlah. All rights reserved</Text>
-        <Center>
+        <Text>
+          Made with ❤️ by <Link href="https://github.com/gsk-007">gsk-007</Link>{" "}
+          & <Link href="https://github.com/nileshpratap"> nileshpratap </Link>
+        </Text>
+        <Center marginTop={5}>
           <Heading fontSize="md">Disclaimer</Heading>
         </Center>
         <Center>
