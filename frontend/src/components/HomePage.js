@@ -5,7 +5,7 @@ import img from "../assets/home.jpg";
 const HomePage = () => {
   return (
     <Box height="90vh" bg="brand.backgroundTwo">
-      <Flex justify="space-evenly" paddingTop={10}>
+      <Flex flexShrink={3} justify="space-evenly" paddingTop={10}>
         <Box marginTop={10} maxWidth="30vw">
           <Text fontSize="sm" textColor="brand.primaryTwo">
             SECRET API is a powerful and secure data retrieval interface that

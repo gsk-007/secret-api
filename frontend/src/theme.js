@@ -6,8 +6,8 @@ const theme = extendTheme({
     brand: {
       backgroundOne: "#222831",
       backgroundTwo: "#393E46",
-      primaryTwo: "#00ADB5",
       primaryOne: "#EEEEEE",
+      primaryTwo: "#00ADB5",
     },
   },
   styles: {
