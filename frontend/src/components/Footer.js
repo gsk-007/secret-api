@@ -24,6 +24,7 @@ const Footer = () => {
         bg="black"
       >
         <Text>© 2023 BlahBlah. All rights reserved</Text>
+
         <Text>
           Made with ❤️ by <Link href="https://github.com/gsk-007">gsk-007</Link>{" "}
           & <Link href="https://github.com/nileshpratap"> nileshpratap </Link>
