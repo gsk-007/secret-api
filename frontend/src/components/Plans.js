@@ -37,7 +37,7 @@ const plans = [
       "Advanced Documentation",
       "Expanded Features",
     ],
-    price: "₹6.90",
+    price: "₹70",
   },
   {
     name: "Gold Rush",
@@ -49,7 +49,7 @@ const plans = [
       "Exclusive Features",
       "No Rate Limits",
     ],
-    price: "₹69.69",
+    price: "₹700",
   },
 ];
 
