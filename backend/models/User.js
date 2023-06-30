@@ -21,13 +21,8 @@ const userSchema = new mongoose.Schema(
     },
     apiKey: {
       type: String,
-      //   required: true,
-    },
-    apiKey: {
-      type: String,
       // required: true,
     },
-
     plan: {
       type: Number,
       //   required: true,
