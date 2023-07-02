@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Flex, Text, Spacer, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const items = [
   {
@@ -8,7 +9,7 @@ const items = [
   },
   {
     name: "Documentation",
-    route: "/",
+    route: "/docs",
   },
 ];
 
@@ -16,22 +17,30 @@ const Navbar = () => {
   return (
     <Box height="10vh" bg="brand.backgroundOne">
       <Flex paddingY={3}>
-        <Box fontWeight="bold" textColor="brand.primaryTwo" marginLeft={4}>
-          SECRET
-        </Box>
+        <Link to="/">
+          <Box fontWeight="bold" textColor="brand.primaryTwo" marginLeft={4}>
+            SECRET
+          </Box>
+        </Link>
         <Spacer />
         {items.map((item, idx) => (
           <Box key={idx} marginX={3}>
-            <Text>{item.name}</Text>
+            <Link to={item.route}>
+              <Text>{item.name}</Text>
+            </Link>
           </Box>
         ))}
         <Spacer />
-        <Button marginX={3} size="sm" colorScheme="blue">
-          Login
-        </Button>
-        <Button marginX={3} size="sm" colorScheme="blue">
-          Sign Up
-        </Button>
+        <Link to="/login">
+          <Button marginX={3} size="sm" colorScheme="blue">
+            Login
+          </Button>
+        </Link>
+        <Link to="/register">
+          <Button marginX={3} size="sm" colorScheme="blue">
+            Register
+          </Button>
+        </Link>
       </Flex>
     </Box>
   );
