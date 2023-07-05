@@ -55,7 +55,12 @@ const plans = [
 
 const Plans = () => {
   return (
-    <Box height={{ lg: "90vh" }} bg="brand.backgroundOne">
+    <Box height={{ lg: "110vh" }} bg="brand.backgroundOne">
+      <Box paddingTop={3}>
+        <Center>
+          <Heading fontSize="5xl">OUR PLANS</Heading>
+        </Center>
+      </Box>
       <SimpleGrid marginX={4} spacing={10} minChildWidth="320px">
         {plans.map((_, idx) => (
           <Card
