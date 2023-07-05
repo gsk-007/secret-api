@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import img from "../assets/home.jpg";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const HomePage = () => {
   return (
@@ -31,9 +32,16 @@ const HomePage = () => {
         </Flex>
       </Box>
       <Divider />
-      <Box height="60vh" bg="brand.backgroundOne">
-        <Center paddingY={10}>
-          <Text maxW="60vw">
+      <Box minH="70vh" bg="brand.backgroundOne">
+        <Center>
+          <AnimationOnScroll animateIn="animate__bounce">
+            <Heading marginTop={8} fontSize="5xl">
+              Why Secret-API?
+            </Heading>
+          </AnimationOnScroll>
+        </Center>
+        <Center>
+          <Text marginY={8} fontSize="lg" maxW="60vw">
             Secret API is a powerful API that offers a vast collection of
             motivational quotes to inspire and uplift users. With this API,
             developers can easily integrate motivational quotes into their
