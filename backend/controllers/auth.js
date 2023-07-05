@@ -62,7 +62,6 @@ export const register = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    console.log(savedUser);
     // new user added in the DB, now send client a json web token to log him in, protectedly.
     const payload = {
       user: {
@@ -103,7 +102,7 @@ export const login = async (req, res) => {
 
     const { email, password } = req.body;
     const dbuser = await User.findOne({ email: email });
-    // console.log(user);
+
     if (!dbuser) return res.status(400).json({ msg: "user doesn't exists" });
 
     const isMatch = await bcrypt.compare(password, dbuser.password);
@@ -116,7 +115,6 @@ export const login = async (req, res) => {
         id: dbuser._id,
       },
     };
-    console.log(payload);
 
     jwt.sign(
       payload,

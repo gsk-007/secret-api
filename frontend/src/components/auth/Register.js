@@ -56,23 +56,13 @@ export default function Register(props) {
   };
 
   return (
-    <div>
-      <Flex
-        minH={"100vh"}
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
-      >
+    <Box bg="brand.backgroundOne">
+      <Flex minH={"100vh"} align={"center"} justify={"center"}>
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"}>Sign up to Secret API</Heading>
           </Stack>
-          <Box
-            rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
-            boxShadow={"lg"}
-            p={8}
-          >
+          <Box rounded={"lg"} bg="brand.backgroundTwo" boxShadow={"lg"} p={8}>
             <Stack spacing={4}>
               <FormControl id="name">
                 <FormLabel>Name</FormLabel>
@@ -129,6 +119,6 @@ export default function Register(props) {
           </Box>
         </Stack>
       </Flex>
-    </div>
+    </Box>
   );
 }

@@ -110,9 +110,7 @@ const AuthState = (props) => {
       console.log("settoken");
     }
     try {
-      const res = await axios.get(
-        process.env.REACT_APP_BASE_URL + "/auth/getUser"
-      );
+      const res = await axios.get("/auth/getUser");
       dispatch({ type: USER_LOADED, payload: res.data });
       console.log(res);
     } catch (error) {
