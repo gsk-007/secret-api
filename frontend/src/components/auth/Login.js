@@ -19,9 +19,10 @@ export default function Login() {
   const authContext = useContext(AuthContext);
   const { login, error, clearErrors, isAuthenticated } = authContext;
   const [user, setUser] = useState({
-    email: "johndoe@example.com",
-    password: "pass123",
+    email: "",
+    password: "",
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { email, password } = user;
   const onChange = (e) => {
@@ -34,11 +35,8 @@ export default function Login() {
     if (!email || !password) {
       alert("Please fill all the fields.");
     } else {
+      setLoading(true);
       await login({ email, password });
-
-      if (isAuthenticated) {
-        navigate("/dashboard");
-      }
     }
   };
 
@@ -47,8 +45,13 @@ export default function Login() {
       alert(error);
       clearErrors();
     }
+    if (isAuthenticated) {
+      setLoading(false);
+      navigate("/dashboard");
+    }
+
     //eslint-disable-next-line
-  }, [error, isAuthenticated]);
+  }, [error, isAuthenticated, loading]);
   return (
     <Box minH={"100vh"} bg="brand.backgroundOne">
       <Flex minH={"100vh"} align={"center"} justify={"center"}>
@@ -94,6 +97,7 @@ export default function Login() {
                     bg: "blue.500",
                   }}
                   type="submit"
+                  isLoading={loading}
                   onClick={handleSubmit}
                 >
                   Sign in

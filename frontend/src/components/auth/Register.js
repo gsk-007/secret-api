@@ -10,11 +10,10 @@ import {
   Link,
   Button,
   Heading,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import GoogleAuth from "./GoogleAuth";
 import AuthContext from "../../context/context";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Register(props) {
   const authContext = useContext(AuthContext);
@@ -25,35 +24,36 @@ export default function Register(props) {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const { name, email, password } = user;
-  // let navigate = useNavigate();
-  useEffect(() => {
-    if (isAuthenticated) {
-      //redirect
-      // navigate("/");
-    }
-    if (error === "User already exists") {
-      alert(error);
-      clearErrors();
-    }
-    //eslint-desable-next-line
-  }, [error, isAuthenticated, props.history]);
+  const navigate = useNavigate();
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     console.log("Register Submit.");
-    console.log(name, email, password);
-    register({
+    await register({
       name,
       email,
       password,
     });
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLoading(false);
+      navigate("/dashboard");
+    }
+    if (error === "User already exists") {
+      alert(error);
+      clearErrors();
+    }
+    //eslint-disable-next-line
+  }, [error, isAuthenticated, props.history, loading]);
 
   return (
     <Box bg="brand.backgroundOne">
@@ -108,6 +108,7 @@ export default function Register(props) {
                   }}
                   type="submit"
                   onClick={handleSubmit}
+                  isLoading={loading}
                 >
                   Sign up
                 </Button>
