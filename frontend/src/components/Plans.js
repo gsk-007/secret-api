@@ -14,8 +14,9 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import { Link } from "react-router-dom";
 
-const plans = [
+export const plans = [
   {
     name: "Budget Buster",
     type: "Free",
@@ -27,6 +28,7 @@ const plans = [
       "Limited Rate Limits",
     ],
     price: "₹0.0",
+    route: "/login",
   },
   {
     name: "Silver Spoon",
@@ -39,6 +41,7 @@ const plans = [
       "Expanded Features",
     ],
     price: "₹70",
+    route: "/buy/1",
   },
   {
     name: "Gold Rush",
@@ -51,6 +54,7 @@ const plans = [
       "No Rate Limits",
     ],
     price: "₹700",
+    route: "/buy/2",
   },
 ];
 
@@ -69,7 +73,6 @@ const Plans = () => {
           <AnimationOnScroll animateIn="animate__bounceIn" key={idx}>
             <Card
               maxHeight="500px"
-              key={idx}
               width="360px"
               marginY={6}
               align="center"
@@ -99,9 +102,11 @@ const Plans = () => {
                 </Center>
               </CardBody>
               <CardFooter>
-                <Button colorScheme="teal" variant="ghost">
-                  Buy
-                </Button>
+                <Link to={_.route}>
+                  <Button colorScheme="teal" variant="ghost">
+                    {idx === 0 ? "Login To Subscribe" : "Get"}
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </AnimationOnScroll>
