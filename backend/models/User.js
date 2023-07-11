@@ -28,10 +28,6 @@ const userSchema = new mongoose.Schema(
       //   required: true,
       default: 1,
     },
-    remainingApiCalls: {
-      type: Number,
-      //   required: true,
-    },
     remainingApiCallsToday: {
       type: Number,
       default: 25,

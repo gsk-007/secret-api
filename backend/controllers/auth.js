@@ -110,7 +110,7 @@ export const login = async (req, res) => {
       },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.status(201).json({ token });
       }
       // we need a middleware to add this token in the header for account access.
     );
