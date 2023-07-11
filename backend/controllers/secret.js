@@ -11,7 +11,6 @@ export const getSecrets = async (req, res) => {
   //   console.log(req);
   try {
     const user = await User.findOne({ apiKey: key });
-    console.log(user);
     if (!user) {
       return res.status(401).json({ msg: "Invalid Request" });
     }
@@ -21,14 +20,14 @@ export const getSecrets = async (req, res) => {
 
     // setting max page limit
     const currentPlan = user.plan;
-    console.log(maxPages[currentPlan - 1]);
+
     if (page > maxPages[currentPlan - 1]) {
       return res.status(200).json({ msg: "Reached End!!" });
     }
 
     // setting remainingApiCalls for a user
-    // user.remainingApiCallsToday = user.remainingApiCallsToday - 1;
-    // await user.save();
+    user.remainingApiCallsToday = user.remainingApiCallsToday - 1;
+    await user.save();
 
     const secrets = await Secret.find()
       .limit(pageSize)
