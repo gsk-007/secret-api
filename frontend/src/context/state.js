@@ -14,7 +14,7 @@ import {
   CLEAR_ERRORS,
 } from "../types";
 
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
 
 const AuthState = (props) => {
   const initialState = {
@@ -89,10 +89,10 @@ const AuthState = (props) => {
       });
       // wait for dispatch to complete
       await new Promise((resolve) => setTimeout(resolve, 0));
-      console.log("current value", localStorage.token);
+      // console.log("current value", localStorage.token);
       await loadUser();
     } catch (error) {
-      console.log("In failure");
+      // console.log("In failure");
       dispatch({
         type: LOGIN_FAIL,
         payload: error.response.data.msg,
@@ -103,18 +103,15 @@ const AuthState = (props) => {
 
   // load user
   const loadUser = async (formData) => {
-    // console.log("load user");
     // we have to store token into global headers.
     if (localStorage.token) {
       setAuthToken(localStorage.token);
-      console.log("settoken");
+      // console.log("settoken");
     }
     try {
-      const res = await axios.get(
-        process.env.REACT_APP_BASE_URL + "/auth/getUser"
-      );
+      const res = await axios.get("/auth/getUser");
       dispatch({ type: USER_LOADED, payload: res.data });
-      console.log(res);
+      // console.log(res);
     } catch (error) {
       dispatch({ type: AUTH_ERROR });
     }
