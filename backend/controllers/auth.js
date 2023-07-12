@@ -3,22 +3,7 @@ import jwt from "jsonwebtoken";
 import config from "config";
 import { check, validationResult } from "express-validator";
 import User from "../models/User.js";
-import crypto from "crypto";
-import base64url from "base64url";
-
-// generate api key
-const getAPIkey = (email) => {
-  // Create a hash of the email using a cryptographic algorithm
-  const hash = crypto.createHash("sha256").update(email).digest("hex");
-
-  // Take the first 16 characters of the hash
-  const apiKey = hash.substring(0, 16);
-
-  // Encode the API key using base64url
-  const encodedApiKey = base64url.encode(apiKey);
-
-  return encodedApiKey;
-};
+import { getAPIkey } from "./utils.js";
 
 /* REGISTER USER */
 export const register = async (req, res) => {
@@ -29,6 +14,7 @@ export const register = async (req, res) => {
     "please enter a password with 6 or more characters"
   ).isLength({ min: 6 });
   try {
+    console.log("user entered");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(errors);
@@ -62,7 +48,6 @@ export const register = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    console.log(savedUser);
     // new user added in the DB, now send client a json web token to log him in, protectedly.
     const payload = {
       user: {
@@ -103,7 +88,7 @@ export const login = async (req, res) => {
 
     const { email, password } = req.body;
     const dbuser = await User.findOne({ email: email });
-    // console.log(user);
+
     if (!dbuser) return res.status(400).json({ msg: "user doesn't exists" });
 
     const isMatch = await bcrypt.compare(password, dbuser.password);
@@ -116,7 +101,6 @@ export const login = async (req, res) => {
         id: dbuser._id,
       },
     };
-    console.log(payload);
 
     jwt.sign(
       payload,
