@@ -14,6 +14,7 @@ export const register = async (req, res) => {
     "please enter a password with 6 or more characters"
   ).isLength({ min: 6 });
   try {
+    console.log("user entered");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(errors);

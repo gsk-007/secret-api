@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthContext from "./context";
 import AuthReducer from "./reducer";
 import setAuthToken from "../utils/setAuthToken";
+// import { useNavigate } from "react-router-dom";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -12,20 +13,25 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
+  SET_PLAN,
 } from "../types";
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const AuthState = (props) => {
+  // let navigate = useNavigate();
+  let Token = localStorage.getItem("token");
+  let User = JSON.parse(localStorage.getItem("user"));
   const initialState = {
-    token: localStorage.getItem("token"),
-    isAuthenticated: null,
-    loading: true,
-    user: null,
+    token: Token,
+    user: User,
+    isAuthenticated: Token ? true : false,
+    loading: User ? true : false,
     error: null,
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
+  console.log("user", state.user);
 
   const google_auth = async (props) => {
     const config = {
@@ -57,7 +63,11 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.post("/auth/register", formData, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/auth/register",
+        formData,
+        config
+      );
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -82,7 +92,11 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.post("/auth/login", formData, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/auth/login",
+        formData,
+        config
+      );
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -117,6 +131,43 @@ const AuthState = (props) => {
     }
   };
 
+  // handling payment
+  const handlePayment = async (idx) => {
+    // we have to store token into global headers.
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      console.log("hi");
+      const response = await axios.put(
+        process.env.REACT_APP_BASE_URL + "/payment",
+        { plan: idx + 1 },
+        config
+      );
+      console.log("hii");
+      // Check if the response is a redirect
+      if (response.status === 300) {
+        // Redirect the user to the specified URL
+        window.location.href = response.data.url;
+      } else {
+        // Handle other types of responses
+        console.log(response.data); // Process the response data as needed
+      }
+      // dispatch({ type: SET_PLAN, payload: idx + 1 });
+      // give alert about success/fail
+
+      //redirect to res.data.redirect_url
+      // navigate("/");
+    } catch (error) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
+
   // logout
   const logout = () => {
     dispatch({ type: LOGOUT });
@@ -143,6 +194,7 @@ const AuthState = (props) => {
         loadUser,
         login,
         logout,
+        handlePayment,
         google_auth,
         clearErrors,
       }}

@@ -41,6 +41,7 @@ export default function Register(props) {
       email,
       password,
     });
+    setLoading(false);
   };
 
   useEffect(() => {

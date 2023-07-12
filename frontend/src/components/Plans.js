@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import setAuthToken from "../utils/setAuthToken";
 import {
   Box,
   Text,
@@ -12,8 +14,10 @@ import {
   Center,
   UnorderedList,
   ListItem,
+  useStatStyles,
 } from "@chakra-ui/react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import Context from "../context/context";
 
 const plans = [
   {
@@ -55,6 +59,12 @@ const plans = [
 ];
 
 const Plans = () => {
+  const context = useContext(Context);
+  const { handlePayment, user } = context;
+
+  // isdisable to disable buy buttons when some buy button is clicks
+  // const [isDisabled, setisDisabled] = useState(false);
+
   return (
     <Box height={{ lg: "110vh" }} bg="brand.backgroundOne">
       <Box paddingTop={3}>
@@ -89,7 +99,7 @@ const Plans = () => {
               <CardBody>
                 <UnorderedList>
                   {_.features.map((feat) => (
-                    <ListItem>{feat}</ListItem>
+                    <ListItem key={feat}>{feat}</ListItem>
                   ))}
                 </UnorderedList>
                 <Center>
@@ -99,8 +109,24 @@ const Plans = () => {
                 </Center>
               </CardBody>
               <CardFooter>
-                <Button colorScheme="teal" variant="ghost">
-                  Buy
+                <Button
+                  colorScheme="teal"
+                  variant="ghost"
+                  onClick={(e) => {
+                    // setisDisabled(true);
+                    e.stopPropagation();
+                    handlePayment(idx);
+                    // setisDisabled(false);
+                  }}
+                  // isDisabled={isDisabled}
+                >
+                  {user !== null
+                    ? idx + 1 > user.plan
+                      ? "Get now"
+                      : idx + 1 === user.plan
+                      ? "Current"
+                      : "Switch to this"
+                    : "Buy"}
                 </Button>
               </CardFooter>
             </Card>
