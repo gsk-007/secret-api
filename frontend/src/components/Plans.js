@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+
 import {
   Box,
   Text,
@@ -14,12 +14,11 @@ import {
   Center,
   UnorderedList,
   ListItem,
-  useStatStyles,
 } from "@chakra-ui/react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import Context from "../context/context";
 
-const plans = [
+export const plans = [
   {
     name: "Budget Buster",
     type: "Free",
@@ -31,6 +30,7 @@ const plans = [
       "Limited Rate Limits",
     ],
     price: "₹0.0",
+    route: "/login",
   },
   {
     name: "Silver Spoon",
@@ -43,6 +43,7 @@ const plans = [
       "Expanded Features",
     ],
     price: "₹70",
+    route: "/buy/1",
   },
   {
     name: "Gold Rush",
@@ -55,16 +56,12 @@ const plans = [
       "No Rate Limits",
     ],
     price: "₹700",
+    route: "/buy/2",
   },
 ];
-
 const Plans = () => {
   const context = useContext(Context);
-  const { handlePayment, user } = context;
-
-  // isdisable to disable buy buttons when some buy button is clicks
-  // const [isDisabled, setisDisabled] = useState(false);
-
+  const { user } = context;
   return (
     <Box height={{ lg: "110vh" }} bg="brand.backgroundOne">
       <Box paddingTop={3}>
@@ -109,25 +106,21 @@ const Plans = () => {
                 </Center>
               </CardBody>
               <CardFooter>
-                <Button
-                  colorScheme="teal"
-                  variant="ghost"
-                  onClick={(e) => {
-                    // setisDisabled(true);
-                    e.stopPropagation();
-                    handlePayment(idx);
-                    // setisDisabled(false);
-                  }}
-                  // isDisabled={isDisabled}
-                >
-                  {user !== null
-                    ? idx + 1 > user.plan
-                      ? "Get now"
-                      : idx + 1 === user.plan
-                      ? "Current"
-                      : "Switch to this"
-                    : "Buy"}
-                </Button>
+                <Link to={_.route}>
+                  <Button
+                    colorScheme="teal"
+                    variant="ghost"
+                    isDisabled={idx + 1 === user.plan}
+                  >
+                    {user !== null
+                      ? idx + 1 > user.plan
+                        ? "Get now"
+                        : idx + 1 === user.plan
+                        ? "Current"
+                        : "Switch to this"
+                      : "Buy"}
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </AnimationOnScroll>

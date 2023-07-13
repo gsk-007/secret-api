@@ -6,6 +6,8 @@ import State from "./context/state";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import DashboardScreen from "./screens/DashboardScreen";
+import OrderScreen from "./screens/OrderScreen";
+import PostPaymentScreen from "./screens/PostPaymentScreen";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardScreen />,
+  },
+  {
+    path: "/buy/:id",
+    element: <OrderScreen />,
+  },
+  {
+    path: "/payment",
+    element: <PostPaymentScreen />,
   },
 ]);
 

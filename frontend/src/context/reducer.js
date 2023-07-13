@@ -7,7 +7,6 @@ import {
   CLEAR_ERRORS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  SET_PLAN,
 } from "../types";
 
 const authReducer = (state, action) => {
@@ -40,11 +39,6 @@ const authReducer = (state, action) => {
         loading: false,
         user: null,
         error: action.payload,
-      };
-    case SET_PLAN:
-      return {
-        ...state,
-        user: { ...state.user, plan: action.payload },
       };
     case LOGOUT:
       localStorage.removeItem("token");
