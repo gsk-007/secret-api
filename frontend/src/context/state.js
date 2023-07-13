@@ -13,10 +13,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
-  SET_PLAN,
 } from "../types";
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const AuthState = (props) => {
   // let navigate = useNavigate();
@@ -134,38 +133,68 @@ const AuthState = (props) => {
   };
 
   // handling payment
-  const handlePayment = async (idx) => {
-    // we have to store token into global headers.
+  const handlePayment = async (id) => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
+    // we have to store token into global headers.
+    id = Number(id) + 1;
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      console.log("hi");
-      const response = await axios.put(
-        process.env.REACT_APP_BASE_URL + "/payment",
-        { plan: idx + 1 },
+      console.log("handling payment, plan: ", id);
+      axios
+        .post(
+          process.env.REACT_APP_BASE_URL + "/payment",
+          { plan: id, email: state.user.email, id: state.user._id },
+          config
+        )
+        .then((response) => {
+          // if (response.status === 303) {
+          // const redirectedUrl = response.headers.location;
+          // Handle the redirected URL as needed
+          console.log("Redirected to:", response.data.url);
+          window.location.href = response.data.url;
+        })
+        .catch((err) => {
+          // Handle any errors
+          console.error(err);
+        });
+    } catch (error) {
+      console.log(error.message);
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
+
+  // setting up plan
+  const setPlan = async (token) => {
+    if (token === "false") {
+      window.location.href = process.env.REACT_APP_MAIN_URL;
+    }
+
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      console.log("setting the plan");
+      const res = await axios.put(
+        process.env.REACT_APP_BASE_URL + "/payment/setPlan",
+        { token, email: state.user.email, id: state.user._id },
         config
       );
-      console.log("hii");
-      // Check if the response is a redirect
-      if (response.status === 300) {
-        // Redirect the user to the specified URL
-        window.location.href = response.data.url;
-      } else {
-        // Handle other types of responses
-        console.log(response.data); // Process the response data as needed
-      }
-      // dispatch({ type: SET_PLAN, payload: idx + 1 });
-      // give alert about success/fail
-
-      //redirect to res.data.redirect_url
-      // navigate("/");
+      await loadUser();
+      window.location.href = process.env.REACT_APP_MAIN_URL;
     } catch (error) {
+      console.log(error.message);
       dispatch({ type: AUTH_ERROR });
     }
   };
@@ -193,6 +222,7 @@ const AuthState = (props) => {
         error: state.error,
         register,
         AuthState,
+        setPlan,
         loadUser,
         login,
         logout,

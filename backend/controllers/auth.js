@@ -32,7 +32,7 @@ export const register = async (req, res) => {
     }
 
     // password encryption.
-    const salt = await bcrypt.genSalt();
+    const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
     password = passwordHash;
 
@@ -66,6 +66,7 @@ export const register = async (req, res) => {
       }
     );
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({ error: err.message });
     // res.status(500).send("server error");
   }
@@ -115,6 +116,7 @@ export const login = async (req, res) => {
       // we need a middleware to add this token in the header for account access.
     );
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({ error: err.message });
     // res.status(500).send("server error");
   }
@@ -126,6 +128,7 @@ export const getUser = async (req, res) => {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({ error: err.message });
     // res.status(500).send("Server Error.");
   }
@@ -171,6 +174,7 @@ export const google_auth = async (req, res) => {
       }
     );
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({ error: err.message });
   }
 };
