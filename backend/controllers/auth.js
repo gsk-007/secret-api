@@ -20,7 +20,7 @@ export const register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       // console.log(errors);
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array() });
     }
 
     // no error, proceed to register
@@ -85,7 +85,7 @@ export const login = async (req, res) => {
     // if any error, return.
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array() });
     }
 
     const { email, password } = req.body;
