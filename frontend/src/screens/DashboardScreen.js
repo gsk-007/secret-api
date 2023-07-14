@@ -12,7 +12,6 @@ const DashboardScreen = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthenticated) {
-      console.log("not authenticated");
       navigate("/login");
     }
   }, [isAuthenticated]);

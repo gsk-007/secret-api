@@ -10,7 +10,7 @@ function GoogleAuth() {
 
   const handleSuccess = async (res) => {
     let info = jwt_decode(res.credential);
-    console.log(info);
+    // console.log(info);
 
     const { given_name, family_name, email } = info;
     // const { name, email } = info;

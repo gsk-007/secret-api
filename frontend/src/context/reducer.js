@@ -13,7 +13,7 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case USER_LOADED:
       localStorage.setItem("user", JSON.stringify(action.payload));
-      console.log(localStorage.getItem("user"));
+      // console.log(localStorage.getItem("user"));
       return {
         ...state,
         isAuthenticated: true,

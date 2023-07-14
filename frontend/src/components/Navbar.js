@@ -20,7 +20,7 @@ const Navbar = () => {
   const { isAuthenticated, logout } = authContext;
   const navigate = useNavigate();
   if (isAuthenticated === false) {
-    console.log(isAuthenticated, "isauth");
+    // console.log(isAuthenticated, "isauth");
     navigate("/login");
   }
   return (
