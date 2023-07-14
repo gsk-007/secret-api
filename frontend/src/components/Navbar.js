@@ -54,7 +54,6 @@ const Navbar = () => {
             </Link>
           </Box>
         ) : (
-          // TODO Attach Logout Function
           <Box>
             <Button onClick={logout} marginX={3} size="sm" colorScheme="teal">
               Logout

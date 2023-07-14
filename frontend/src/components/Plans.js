@@ -31,6 +31,7 @@ export const plans = [
     ],
     price: "₹0.0",
     route: "/login",
+    btnText: "Buy",
   },
   {
     name: "Silver Spoon",
@@ -44,6 +45,7 @@ export const plans = [
     ],
     price: "₹70",
     route: "/buy/1",
+    btnText: "Buy",
   },
   {
     name: "Gold Rush",
@@ -57,6 +59,7 @@ export const plans = [
     ],
     price: "₹700",
     route: "/buy/2",
+    btnText: "Buy",
   },
 ];
 const Plans = () => {
@@ -106,19 +109,13 @@ const Plans = () => {
                 </Center>
               </CardBody>
               <CardFooter>
-                <Link to={_.route}>
+                <Link to={!user ? "/login" : _.route}>
                   <Button
                     colorScheme="teal"
                     variant="ghost"
-                    isDisabled={idx + 1 === user.plan}
+                    isDisabled={user !== null && idx + 1 === user.plan}
                   >
-                    {user !== null
-                      ? idx + 1 > user.plan
-                        ? "Get now"
-                        : idx + 1 === user.plan
-                        ? "Current"
-                        : "Switch to this"
-                      : "Buy"}
+                    {_.btnText}
                   </Button>
                 </Link>
               </CardFooter>
