@@ -3,6 +3,7 @@ import cors from "cors";
 
 import ConnectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
+import paymentRoutes from "./routes/payment.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
   res.json({ msg: "hi" });
 });
 app.use("/auth", authRoutes);
+app.use("/payment", paymentRoutes);
 
 // define routes
 

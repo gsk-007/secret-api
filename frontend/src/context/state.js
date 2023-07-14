@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthContext from "./context";
 import AuthReducer from "./reducer";
 import setAuthToken from "../utils/setAuthToken";
+// import { useNavigate } from "react-router-dom";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -14,18 +15,22 @@ import {
   CLEAR_ERRORS,
 } from "../types";
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const AuthState = (props) => {
+  // let navigate = useNavigate();
+  let Token = localStorage.getItem("token");
+  let User = JSON.parse(localStorage.getItem("user"));
   const initialState = {
-    token: localStorage.getItem("token"),
-    isAuthenticated: null,
-    loading: true,
-    user: null,
+    token: Token,
+    user: User,
+    isAuthenticated: Token ? true : false,
+    loading: User ? true : false,
     error: null,
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
+  // console.log("user", state.user);
 
   const google_auth = async (props) => {
     const config = {
@@ -57,7 +62,11 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.post("/auth/register", formData, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/auth/register",
+        formData,
+        config
+      );
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -82,7 +91,11 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.post("/auth/login", formData, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/auth/login",
+        formData,
+        config
+      );
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -117,6 +130,73 @@ const AuthState = (props) => {
     }
   };
 
+  // handling payment
+  const handlePayment = async (id) => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+    // we have to store token into global headers.
+    id = Number(id) + 1;
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      // console.log("handling payment, plan: ", id);
+      axios
+        .post(
+          process.env.REACT_APP_BASE_URL + "/payment",
+          { plan: id, email: state.user.email, id: state.user._id },
+          config
+        )
+        .then((response) => {
+          // if (response.status === 303) {
+          // const redirectedUrl = response.headers.location;
+          // Handle the redirected URL as needed
+          // console.log("Redirected to:", response.data.url);
+          window.location.href = response.data.url;
+        })
+        .catch((err) => {
+          // Handle any errors
+          console.error(err);
+        });
+    } catch (error) {
+      // console.log(error.message);
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
+
+  // setting up plan
+  const setPlan = async (token) => {
+    if (token === "false") {
+      window.location.href = process.env.REACT_APP_MAIN_URL;
+    }
+
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      // console.log("setting the plan");
+      const res = await axios.put(
+        process.env.REACT_APP_BASE_URL + "/payment/setPlan",
+        { token, email: state.user.email, id: state.user._id },
+        config
+      );
+      await loadUser();
+      window.location.href = process.env.REACT_APP_MAIN_URL;
+    } catch (error) {
+      console.log(error.message);
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
+
   // logout
   const logout = () => {
     dispatch({ type: LOGOUT });
@@ -140,9 +220,11 @@ const AuthState = (props) => {
         error: state.error,
         register,
         AuthState,
+        setPlan,
         loadUser,
         login,
         logout,
+        handlePayment,
         google_auth,
         clearErrors,
       }}

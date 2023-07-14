@@ -7,13 +7,13 @@ import {
   Input,
   Checkbox,
   Stack,
-  Link,
   Button,
   Heading,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import GoogleAuth from "./GoogleAuth";
 import AuthContext from "../../context/context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Register(props) {
   const authContext = useContext(AuthContext);
@@ -35,12 +35,13 @@ export default function Register(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Register Submit.");
+    // console.log("Register Submit.");
     await register({
       name,
       email,
       password,
     });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -98,7 +99,9 @@ export default function Register(props) {
                   justify={"space-between"}
                 >
                   <Checkbox>Remember me</Checkbox>
-                  <Link color={"blue.400"}>Forgot password?</Link>
+                  <ChakraLink color={"blue.400"}>
+                    <Link to="/login">Already Registered?</Link>
+                  </ChakraLink>
                 </Stack>
                 <Button
                   bg={"blue.400"}

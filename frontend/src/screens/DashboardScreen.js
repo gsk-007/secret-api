@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import AuthContext from "../context/context";
@@ -10,9 +10,12 @@ const DashboardScreen = () => {
   const authContext = useContext(AuthContext);
   const { user, isAuthenticated } = authContext;
   const navigate = useNavigate();
-  if (!isAuthenticated) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated]);
+
   return (
     <Box>
       <Navbar />

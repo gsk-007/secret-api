@@ -12,6 +12,8 @@ import {
 const authReducer = (state, action) => {
   switch (action.type) {
     case USER_LOADED:
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      // console.log(localStorage.getItem("user"));
       return {
         ...state,
         isAuthenticated: true,
@@ -24,7 +26,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         ...action.payload,
-        isAuthenticated: true,
+        // isAuthenticated: true,
         loading: false,
       };
     case REGISTER_FAIL:
@@ -40,6 +42,7 @@ const authReducer = (state, action) => {
       };
     case LOGOUT:
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         token: null,

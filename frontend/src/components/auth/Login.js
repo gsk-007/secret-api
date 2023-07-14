@@ -7,13 +7,13 @@ import {
   Input,
   Checkbox,
   Stack,
-  Link,
   Button,
   Heading,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import GoogleAuth from "./GoogleAuth";
 import AuthContext from "../../context/context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const authContext = useContext(AuthContext);
@@ -37,6 +37,7 @@ export default function Login() {
     } else {
       setLoading(true);
       await login({ email, password });
+      setLoading(false);
     }
   };
 
@@ -88,7 +89,9 @@ export default function Login() {
                   justify={"space-between"}
                 >
                   <Checkbox>Remember me</Checkbox>
-                  <Link color={"blue.400"}>Forgot password?</Link>
+                  <ChakraLink color={"blue.400"}>
+                    <Link to="/register">New to App?</Link>
+                  </ChakraLink>
                 </Stack>
                 <Button
                   bg={"blue.400"}

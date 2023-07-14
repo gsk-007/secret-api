@@ -15,7 +15,7 @@ export default function auth(req, res, next) {
   try {
     const decoded = jwt.verify(token, config.get("jwtSecret"));
     req.user = decoded.user;
-    console.log(decoded, "decoded");
+    // console.log(decoded, "decoded");
     // call next() after all the middleware statements.
     next();
   } catch (error) {

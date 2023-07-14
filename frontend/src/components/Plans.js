@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+
 import {
   Box,
   Text,
@@ -14,8 +16,9 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import Context from "../context/context";
 
-const plans = [
+export const plans = [
   {
     name: "Budget Buster",
     type: "Free",
@@ -27,6 +30,8 @@ const plans = [
       "Limited Rate Limits",
     ],
     price: "₹0.0",
+    route: "/login",
+    btnText: "Buy",
   },
   {
     name: "Silver Spoon",
@@ -39,6 +44,8 @@ const plans = [
       "Expanded Features",
     ],
     price: "₹70",
+    route: "/buy/1",
+    btnText: "Buy",
   },
   {
     name: "Gold Rush",
@@ -51,10 +58,13 @@ const plans = [
       "No Rate Limits",
     ],
     price: "₹700",
+    route: "/buy/2",
+    btnText: "Buy",
   },
 ];
-
 const Plans = () => {
+  const context = useContext(Context);
+  const { user } = context;
   return (
     <Box height={{ lg: "110vh" }} bg="brand.backgroundOne">
       <Box paddingTop={3}>
@@ -89,7 +99,7 @@ const Plans = () => {
               <CardBody>
                 <UnorderedList>
                   {_.features.map((feat) => (
-                    <ListItem>{feat}</ListItem>
+                    <ListItem key={feat}>{feat}</ListItem>
                   ))}
                 </UnorderedList>
                 <Center>
@@ -99,9 +109,15 @@ const Plans = () => {
                 </Center>
               </CardBody>
               <CardFooter>
-                <Button colorScheme="teal" variant="ghost">
-                  Buy
-                </Button>
+                <Link to={!user ? "/login" : _.route}>
+                  <Button
+                    colorScheme="teal"
+                    variant="ghost"
+                    isDisabled={user !== null && idx + 1 === user.plan}
+                  >
+                    {_.btnText}
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </AnimationOnScroll>
