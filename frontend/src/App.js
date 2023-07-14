@@ -32,12 +32,16 @@ const router = createBrowserRouter([
     element: <DashboardScreen />,
   },
   {
+    path: "/payment",
+    element: <PostPaymentScreen />,
+  },
+  {
     path: "/buy/:id",
     element: <OrderScreen />,
   },
   {
-    path: "/payment",
-    element: <PostPaymentScreen />,
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 
