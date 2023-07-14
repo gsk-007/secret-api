@@ -6,6 +6,8 @@ import authRoutes from "./routes/auth.js";
 import paymentRoutes from "./routes/payment.js";
 import secretRoutes from "./routes/secret.js";
 
+import "./utils/cron.js";
+
 const app = express();
 
 // connect database
