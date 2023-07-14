@@ -7,14 +7,13 @@ import {
   Input,
   Checkbox,
   Stack,
-  Link,
   Button,
   Heading,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import GoogleAuth from "./GoogleAuth";
 import AuthContext from "../../context/context";
-import { useNavigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const authContext = useContext(AuthContext);
@@ -25,8 +24,6 @@ export default function Login() {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const { email, password } = user;
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -35,11 +32,9 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     if (!email || !password) {
       alert("Please fill all the fields.");
     } else {
-      setLoading(true);
       setLoading(true);
       await login({ email, password });
       setLoading(false);
@@ -58,16 +53,7 @@ export default function Login() {
 
     //eslint-disable-next-line
   }, [error, isAuthenticated, loading]);
-    if (isAuthenticated) {
-      setLoading(false);
-      navigate("/dashboard");
-    }
-
-    //eslint-disable-next-line
-  }, [error, isAuthenticated, loading]);
   return (
-    <Box minH={"100vh"} bg="brand.backgroundOne">
-      <Flex minH={"100vh"} align={"center"} justify={"center"}>
     <Box minH={"100vh"} bg="brand.backgroundOne">
       <Flex minH={"100vh"} align={"center"} justify={"center"}>
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -75,11 +61,7 @@ export default function Login() {
             <Heading color="brand.primaryOne" fontSize={"4xl"}>
               Sign in to your account
             </Heading>
-            <Heading color="brand.primaryOne" fontSize={"4xl"}>
-              Sign in to your account
-            </Heading>
           </Stack>
-          <Box rounded={"lg"} bg="brand.backgroundTwo" boxShadow={"lg"} p={8}>
           <Box rounded={"lg"} bg="brand.backgroundTwo" boxShadow={"lg"} p={8}>
             <Stack spacing={4}>
               <FormControl id="email">
@@ -107,7 +89,9 @@ export default function Login() {
                   justify={"space-between"}
                 >
                   <Checkbox>Remember me</Checkbox>
-                  <Link color={"blue.400"}>Forgot password?</Link>
+                  <ChakraLink color={"blue.400"}>
+                    <Link to="/register">New to App?</Link>
+                  </ChakraLink>
                 </Stack>
                 <Button
                   bg={"blue.400"}
@@ -116,7 +100,6 @@ export default function Login() {
                     bg: "blue.500",
                   }}
                   type="submit"
-                  isLoading={loading}
                   isLoading={loading}
                   onClick={handleSubmit}
                 >
@@ -130,7 +113,6 @@ export default function Login() {
           </Box>
         </Stack>
       </Flex>
-    </Box>
     </Box>
   );
 }

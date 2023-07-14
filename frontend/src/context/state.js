@@ -30,7 +30,7 @@ const AuthState = (props) => {
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
-  console.log("user", state.user);
+  // console.log("user", state.user);
 
   const google_auth = async (props) => {
     const config = {
@@ -143,7 +143,7 @@ const AuthState = (props) => {
           "Content-Type": "application/json",
         },
       };
-      console.log("handling payment, plan: ", id);
+      // console.log("handling payment, plan: ", id);
       axios
         .post(
           process.env.REACT_APP_BASE_URL + "/payment",
@@ -154,7 +154,7 @@ const AuthState = (props) => {
           // if (response.status === 303) {
           // const redirectedUrl = response.headers.location;
           // Handle the redirected URL as needed
-          console.log("Redirected to:", response.data.url);
+          // console.log("Redirected to:", response.data.url);
           window.location.href = response.data.url;
         })
         .catch((err) => {
@@ -162,7 +162,7 @@ const AuthState = (props) => {
           console.error(err);
         });
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       dispatch({ type: AUTH_ERROR });
     }
   };
@@ -183,7 +183,7 @@ const AuthState = (props) => {
           "Content-Type": "application/json",
         },
       };
-      console.log("setting the plan");
+      // console.log("setting the plan");
       const res = await axios.put(
         process.env.REACT_APP_BASE_URL + "/payment/setPlan",
         { token, email: state.user.email, id: state.user._id },

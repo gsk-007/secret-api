@@ -8,7 +8,6 @@ const PostPaymentScreen = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
-  console.log("hi", token);
   const context = useContext(Context);
   const { setPlan } = context;
   useEffect(() => {
