@@ -4,7 +4,9 @@ import Stripe from "stripe";
 import bcrypt from "bcrypt";
 import config from "config";
 
-const frontendURL = config.get("frontendURL");
+const frontendURL = config.get("frontendURL") || process.env.frontendURL;
+
+const apiCalls = [25, 75, 150];
 
 const stripe = Stripe(
   "sk_test_51NOEtKSEgdXGUOzRoPgzRP601EUK7cLMNgNf7h29LixVQN1ANkipOn5f3RDhgIMjXcsnr4OCCwYSjEHC3QEG27Ja00dUlCJgcA"
@@ -69,7 +71,7 @@ export const setPlan = async (req, res) => {
     // update the plan of user
     const savedUser = await User.findByIdAndUpdate(
       id, // user id
-      { $set: { plan: plan } }
+      { $set: { plan: plan, remainingApiCallsToday: apiCalls[plan - 1] } }
     );
     res.status(200).json({ msg: "plan updated successfully" });
   } catch (error) {

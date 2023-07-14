@@ -4,6 +4,9 @@ import cors from "cors";
 import ConnectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
 import paymentRoutes from "./routes/payment.js";
+import secretRoutes from "./routes/secret.js";
+
+import "./utils/cron.js";
 
 const app = express();
 
@@ -20,6 +23,7 @@ app.use(express.json({ extended: false }));
 app.get("/", (req, res) => {
   res.json({ msg: "hi" });
 });
+app.use("/api", secretRoutes);
 app.use("/auth", authRoutes);
 app.use("/payment", paymentRoutes);
 

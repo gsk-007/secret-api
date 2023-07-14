@@ -5,6 +5,8 @@ import { check, validationResult } from "express-validator";
 import User from "../models/User.js";
 import { getAPIkey } from "./utils.js";
 
+const secret = config.get("jwtSecret") || process.env.JWT_SECRET;
+
 /* REGISTER USER */
 export const register = async (req, res) => {
   check("name", "please add a name").not().isEmpty();
@@ -18,7 +20,7 @@ export const register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       // console.log(errors);
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array() });
     }
 
     // no error, proceed to register
@@ -56,7 +58,7 @@ export const register = async (req, res) => {
     };
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      secret,
       {
         expiresIn: 360000,
       },
@@ -83,7 +85,7 @@ export const login = async (req, res) => {
     // if any error, return.
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array() });
     }
 
     const { email, password } = req.body;
@@ -104,13 +106,13 @@ export const login = async (req, res) => {
 
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      secret,
       {
         expiresIn: 360000,
       },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.status(201).json({ token });
       }
       // we need a middleware to add this token in the header for account access.
     );
@@ -160,7 +162,7 @@ export const google_auth = async (req, res) => {
 
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      secret,
       {
         expiresIn: 360000,
       },
