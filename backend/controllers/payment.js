@@ -4,7 +4,7 @@ import Stripe from "stripe";
 import bcrypt from "bcrypt";
 import config from "config";
 
-const frontendURL = config.get("frontendURL");
+const frontendURL = config.get("frontendURL") || process.env.frontendURL;
 
 const apiCalls = [25, 75, 150];
 

@@ -5,6 +5,8 @@ import { check, validationResult } from "express-validator";
 import User from "../models/User.js";
 import { getAPIkey } from "./utils.js";
 
+const secret = config.get("jwtSecret") || process.env.JWT_SECRET;
+
 /* REGISTER USER */
 export const register = async (req, res) => {
   check("name", "please add a name").not().isEmpty();
@@ -56,7 +58,7 @@ export const register = async (req, res) => {
     };
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      secret,
       {
         expiresIn: 360000,
       },
@@ -104,7 +106,7 @@ export const login = async (req, res) => {
 
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      secret,
       {
         expiresIn: 360000,
       },
@@ -160,7 +162,7 @@ export const google_auth = async (req, res) => {
 
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      secret,
       {
         expiresIn: 360000,
       },
