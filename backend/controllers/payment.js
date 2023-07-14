@@ -4,7 +4,7 @@ import Stripe from "stripe";
 import bcrypt from "bcrypt";
 import config from "config";
 
-const frontendURL = config.get("frontendURL") || process.env.frontendURL;
+const frontendURL = config.get("frontendURL");
 
 const apiCalls = [25, 75, 150];
 
@@ -42,8 +42,8 @@ export const doPayment = async (req, res) => {
       // success_url: `${frontendURL}/payment/${userEmailHash + plan.toString()}`,
       success_url: `${frontendURL}/payment?token=${
         userEmailHash + plan.toString()
-      }`,
-      cancel_url: `${frontendURL}/payment/false`,
+      }&status=true`,
+      cancel_url: `${frontendURL}/payment?status=false`,
     });
 
     // console.log(session.url);

@@ -1,26 +1,36 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useLocation } from "react-router-dom";
 
 import Context from "../context/context";
+import { Box, Spinner } from "@chakra-ui/react";
 
 const PostPaymentScreen = () => {
+  const [loading, setloading] = useState(false);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
+  const token = queryParams.get("token") || "";
+  const status = queryParams.get("status");
   const context = useContext(Context);
   const { setPlan } = context;
   useEffect(() => {
-    setPlan(token);
-  }, []);
+    if (token) setPlan(token);
+    if (!token && !status) {
+      setloading(true);
+    } else {
+      setloading(false);
+    }
+  }, [loading, token, status]);
+
+  if (loading) return <Spinner size="xl" />;
 
   return (
-    <div>
+    <Box color="black">
       <Navbar />
-      {token !== "false"
-        ? "Congratulations!! your payment was successfull, wait for a moment"
-        : "We regret that you couldn't proceed!!, wai for a moment"}
-    </div>
+      {status !== "false"
+        ? "Congratulations!! your payment was successfull, proceed to dashboard"
+        : "We regret that you couldn't proceed!!, try again later"}
+    </Box>
   );
 };
 

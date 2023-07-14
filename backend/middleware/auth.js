@@ -3,7 +3,7 @@
 import jwt from "jsonwebtoken";
 import config from "config";
 
-const secret = config.get("jwtSecret") || process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET || config.get("jwtSecret");
 
 export default function auth(req, res, next) {
   //get token from the header

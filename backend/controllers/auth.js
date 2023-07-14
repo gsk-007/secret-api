@@ -5,7 +5,7 @@ import { check, validationResult } from "express-validator";
 import User from "../models/User.js";
 import { getAPIkey } from "./utils.js";
 
-const secret = config.get("jwtSecret") || process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET || config.get("jwtSecret");
 
 /* REGISTER USER */
 export const register = async (req, res) => {

@@ -39,10 +39,6 @@ const router = createBrowserRouter([
     path: "/payment",
     element: <PostPaymentScreen />,
   },
-  {
-    path: "*",
-    element: <ErrorPage />,
-  },
 ]);
 
 const App = () => {

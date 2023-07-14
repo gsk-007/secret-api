@@ -55,6 +55,11 @@ const Navbar = () => {
           </Box>
         ) : (
           <Box>
+            <Link to="/dashboard">
+              <Button marginX={3} size="sm" colorScheme="teal">
+                Dashboard
+              </Button>
+            </Link>
             <Button onClick={logout} marginX={3} size="sm" colorScheme="teal">
               Logout
             </Button>

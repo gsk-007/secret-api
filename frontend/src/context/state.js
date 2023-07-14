@@ -170,7 +170,7 @@ const AuthState = (props) => {
   // setting up plan
   const setPlan = async (token) => {
     if (token === "false") {
-      window.location.href = process.env.REACT_APP_MAIN_URL;
+      // window.location.href = "/";
     }
 
     if (localStorage.token) {
@@ -190,7 +190,7 @@ const AuthState = (props) => {
         config
       );
       await loadUser();
-      window.location.href = process.env.REACT_APP_MAIN_URL;
+      // window.location.href = "/";
     } catch (error) {
       console.log(error.message);
       dispatch({ type: AUTH_ERROR });
