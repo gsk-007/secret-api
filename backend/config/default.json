@@ -1,5 +1,0 @@
-{
-    "mongoURI":"mongodb+srv://nileshpratapwar02:secretapi@cluster0.lwcxjnm.mongodb.net/?retryWrites=true&w=majority",
-    "jwtSecret": "secret",
-    "frontendURL":"http://localhost:3000"
-}
