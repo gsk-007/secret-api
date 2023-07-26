@@ -6,6 +6,7 @@ const maxPages = [3, 6, 10];
 export const getSecrets = async (req, res) => {
   const params = req.query;
   const { key, pageNumber } = params;
+  if (!key) return res.status(401).send({ msg: "Invalid Request" });
   const pageSize = 10;
   let page = +pageNumber || 1;
   //   console.log(req);
