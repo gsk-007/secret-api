@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const items = [
   {
-    name: "API",
-    route: "/api",
-  },
-  {
     name: "Documentation",
     route: "/docs",
+  },
+  {
+    name: "Customer Support",
+    route: "/support",
   },
 ];
 

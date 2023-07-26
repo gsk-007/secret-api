@@ -9,6 +9,7 @@ import DashboardScreen from "./screens/DashboardScreen";
 import OrderScreen from "./screens/OrderScreen";
 import PostPaymentScreen from "./screens/PostPaymentScreen";
 import ErrorPage from "./components/ErrorPage";
+import SupportScreen from "./screens/SupportScreen";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/payment",
     element: <PostPaymentScreen />,
+  },
+  {
+    path: "/support",
+    element: <SupportScreen />,
   },
   {
     path: "/buy/:id",

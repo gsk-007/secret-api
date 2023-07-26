@@ -9,7 +9,7 @@ export const getSecrets = async (req, res) => {
   if (!key) return res.status(401).send({ msg: "Invalid Request" });
   const pageSize = 10;
   let page = +pageNumber || 1;
-  //   console.log(req);
+  // console.log(req.key);
   try {
     const user = await User.findOne({ apiKey: key });
     if (!user) {

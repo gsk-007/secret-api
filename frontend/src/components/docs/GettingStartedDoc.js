@@ -11,7 +11,9 @@ import {
 } from "@chakra-ui/react";
 
 const GettingStartedDoc = () => {
-  const { onCopy, hasCopied } = useClipboard("https://api.secretapi.com/v1");
+  const { onCopy, hasCopied } = useClipboard(
+    "https://secret-api-backend.onrender.com/"
+  );
   return (
     <Box width="80%">
       <Heading> Secret API - Quote Service</Heading>
@@ -21,7 +23,7 @@ const GettingStartedDoc = () => {
         building a website, mobile application, or any other project that needs
         a touch of wisdom, our API has you covered.
       </Text>
-      <Divider />
+      <Divider marginY={5} />
       <Box>
         <Heading> API Key</Heading>
         <Text>
@@ -32,15 +34,24 @@ const GettingStartedDoc = () => {
           "Generate Key" button. Copy the API key provided.
         </Text>
       </Box>
+      <Divider marginY={5} />
       <Box>
         <Heading> Base URL</Heading>
         <Text>The base URL for Secret API - Quote Service is:</Text>
-        <Card>
-          <Badge align="right" cursor="pointer" onClick={onCopy}>
+        <Card marginTop={2}>
+          <Badge
+            bg="teal"
+            color="brand.primaryOne"
+            align="right"
+            cursor="pointer"
+            paddingY={2}
+            onClick={onCopy}
+            paddingRight={3}
+          >
             {hasCopied ? "Copied!" : "Copy"}
           </Badge>
           <CardBody>
-            <Text>https://api.secretapi.com/v1</Text>
+            <Text>https://secret-api-backend.onrender.com/</Text>
           </CardBody>
         </Card>
       </Box>
